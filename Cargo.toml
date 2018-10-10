@@ -1,0 +1,6 @@
+[package]
+name = "rusty-raytracer"
+version = "0.1.0"
+authors = ["lemonteaa <lemontea.Tom@gmail.com>"]
+
+[dependencies]
