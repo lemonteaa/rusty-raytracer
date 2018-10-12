@@ -12,14 +12,15 @@ pub struct Camera {
 
 impl Camera {
     pub fn get_inv_view(&self) -> Matrix4<f64> {
-        Matrix4::new_observer_frame(&self.pos, &(self.pos + self.lookat), &self.vup)
+        //The fcn maps view dir to +ve z axis, but we want -ve z axis hence the sign
+        Matrix4::new_observer_frame(&self.pos, &(self.pos - self.lookat), &self.vup)
     }
 
     pub fn get_projection(&self) -> Perspective3<f64> {
         Perspective3::new(self.aspect_ratio, self.fovy, 1.0, 1000.0)
     }
 
-    pub fn get_ray_direction(&self, x_ndc: f64, y_ndc: f64) -> Vector3<f64> {
+    pub fn get_raw_ray_direction(&self, x_ndc: f64, y_ndc: f64) -> Vector3<f64> {
         let projection = self.get_projection();
         let inv_view = self.get_inv_view();
         let p = projection.unproject_point(&Point3::new(x_ndc, y_ndc, -1.0));
@@ -53,5 +54,8 @@ fn test_create_camera() -> Camera {
 #[test]
 fn test_camera_gen_ray() {
     let c = test_create_camera();
-    println!("Test cam ray: {}", c.get_ray_direction(-1.0, -1.0))
+    //Debug
+    //let p = c.get_projection().unproject_point(&Point3::new(-1.0, -1.0, 1.0));
+    //println!("debug, after unproject: {}", p);
+    println!("Test cam ray: {}", c.get_raw_ray_direction(-1.0, -1.0))
 }
