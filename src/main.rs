@@ -13,8 +13,7 @@ use std::fs::File;
 use na::{Point3, Vector3, Matrix4};
 
 pub mod scene;
-
-use scene::camera::Camera;
+pub mod model;
 
 fn render() -> DynamicImage {
     let mut image = DynamicImage::new_rgb8(800, 600);
