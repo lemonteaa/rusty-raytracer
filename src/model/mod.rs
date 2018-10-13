@@ -17,3 +17,9 @@ impl Ray {
         self
     }
 }
+
+/* Some concrete models */
+pub struct Sphere {
+    pub center: Point3<f64>,
+    pub radius: f64
+}
