@@ -14,6 +14,7 @@ use na::{Point3, Vector3, Matrix4};
 
 pub mod scene;
 pub mod model;
+pub mod util;
 
 fn render() -> DynamicImage {
     let mut image = DynamicImage::new_rgb8(800, 600);
