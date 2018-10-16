@@ -1,3 +1,4 @@
+use model::intersect::Intersectable;
 use na::{Point3, Vector3};
 
 pub mod intersect;
@@ -16,6 +17,12 @@ impl Ray {
         self.direction.normalize_mut();
         self
     }
+}
+
+/* Scene Graph model */
+pub enum SceneObject {
+    Group { child_nodes: Vec<SceneObject> },
+    Node { model: Box<Intersectable> }
 }
 
 /* Some concrete models */
