@@ -2,6 +2,8 @@ use na::{Vector3, Point3, clamp};
 
 use std::ops::{Add, Mul};
 
+pub const BLACK : Color = Color { intensities: Vector3::zeros() };
+
 pub struct Color {
     pub intensities : Vector3<f64>
 }
