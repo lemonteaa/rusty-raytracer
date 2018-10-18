@@ -1,4 +1,5 @@
-use model::SceneObject;
+use std::rc::Rc;
+use model::{SceneObject, Material};
 use na::{Vector3, Point3, Unit};
 
 use model::Sphere;
@@ -13,6 +14,7 @@ pub struct Intersection {
     pub distance: f64,
     pub intersect_pt: Point3<f64>,
     pub normal: Vector3<f64>,
+    pub material: Rc<Material>
 }
 
 //Generic intersection for a scene graph
@@ -54,7 +56,8 @@ impl Intersectable for Sphere {
         Some(Intersection {
             distance: distance,
             intersect_pt: intersect_pt,
-            normal: intersect_pt - self.center
+            normal: intersect_pt - self.center,
+            material: self.material.clone()
         })
     }
 }

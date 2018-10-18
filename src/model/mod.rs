@@ -1,3 +1,4 @@
+use std::rc::Rc;
 use model::intersect::Intersectable;
 use na::{Point3, Vector3};
 
@@ -19,6 +20,11 @@ impl Ray {
     }
 }
 
+pub struct Material {
+    pub ambient_reflectance: f64,
+    pub diffuse_reflectance: Point3<f64>
+}
+
 /* Scene Graph model */
 pub enum SceneObject {
     Group { child_nodes: Vec<SceneObject> },
@@ -27,6 +33,7 @@ pub enum SceneObject {
 
 /* Some concrete models */
 pub struct Sphere {
+    pub material: Rc<Material>,
     pub center: Point3<f64>,
     pub radius: f64
 }
