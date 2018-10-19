@@ -4,6 +4,8 @@ extern crate image;
 
 extern crate alga;
 
+extern crate rand;
+
 use image::GenericImage;
 use image::Pixel;
 use image::{DynamicImage, Rgba};

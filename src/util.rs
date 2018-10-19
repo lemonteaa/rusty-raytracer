@@ -61,6 +61,12 @@ impl Mul<Point3<f64>> for Color {
     }
 }
 
+pub fn get_ndc(x: f64, y: f64, width: u32, height: u32) -> (f64, f64) {
+    let x_ndc = 2.0 * (x / (width as f64)) - 1.0;
+    let y_ndc = 2.0 * (y / (height as f64)) - 1.0;
+    (x_ndc, y_ndc)
+}
+
 #[test]
 fn test_gamma() {
     assert_eq!(8.0, gamma_encode(4.0, 0.25, 2.5));
