@@ -18,7 +18,7 @@ impl LightingType {
         match *self {
             LightingType::Ambient {} => Vector3::new(0.0, 0.0, 0.0),
             LightingType::Directional { dir } => dir,
-            LightingType::Point { loc } => (pos - loc)
+            LightingType::Point { loc } => (pos - loc).normalize()
         }
     }
 }

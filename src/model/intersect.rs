@@ -56,7 +56,7 @@ impl Intersectable for Sphere {
         Some(Intersection {
             distance: distance,
             intersect_pt: intersect_pt,
-            normal: intersect_pt - self.center,
+            normal: (intersect_pt - self.center).normalize(),
             material: self.material.clone()
         })
     }
