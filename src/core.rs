@@ -1,7 +1,7 @@
 use na::{Vector3, dot};
 use rand::{Rng, thread_rng};
 use scene::light::{Lighting, LightingType};
-use scene::Scene;
+use scene::{Scene, Background};
 use model::{SceneObject, Ray};
 use model::intersect::{Intersection, Intersectable};
 use util::{Color, get_ndc};
@@ -41,4 +41,15 @@ pub fn gen_ray_antialiased_sample(x: u32, y: u32, scene: &Scene) -> Ray {
     let y_sample : f64 = (y as f64) + rng.gen::<f64>();
     let (x_ndc, y_ndc) = get_ndc(x_sample, y_sample, scene.width, scene.height);
     scene.camera.get_ray(x_ndc, y_ndc)
+}
+
+pub fn antialias_average_color<T: Iterator<Item = Option<Color>>>
+    (samples: T, background_color: Color) -> Color {
+    let mut cnt = 0;
+    let mut acc = Color { intensities: Vector3::zeros() };
+    for sample in samples {
+        acc = acc + sample.unwrap_or(background_color);
+        cnt = cnt + 1;
+    }
+    acc * (1.0/(cnt as f64))
 }
