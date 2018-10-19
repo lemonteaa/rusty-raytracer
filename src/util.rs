@@ -1,3 +1,4 @@
+use image::{Rgba, Pixel};
 use na::{Vector3, Point3, clamp};
 
 use std::ops::{Add, Mul};
@@ -23,7 +24,7 @@ pub fn gamma_encode(x: f64, a: f64, p: f64) -> f64 {
 }
 
 impl Color {
-    pub fn to_rgb(&self, setting : &ColorSetting) {
+    pub fn to_rgb(&self, setting : &ColorSetting) -> Rgba<u8> {
         let r = clamp(gamma_encode(self.intensities.x,
                     setting.gamma_a, setting.gamma_power),
                     0.0, setting.max_intensity) / setting.max_intensity;
@@ -33,6 +34,19 @@ impl Color {
         let b = clamp(gamma_encode(self.intensities.z,
                     setting.gamma_a, setting.gamma_power),
                     0.0, setting.max_intensity) / setting.max_intensity;
+        Rgba::from_channels((r * 255.0) as u8, (g * 255.0) as u8, (b * 255.0) as u8, 255)
+    }
+
+    pub fn from_rgba(rgba: Rgba<u8>, setting: &ColorSetting) -> Color {
+        let r = (rgba.data[0] as f64) / 255.0;
+        let g = (rgba.data[1] as f64) / 255.0;
+        let b = (rgba.data[2] as f64) / 255.0;
+        let am = 1.0 / setting.gamma_a;
+        let power = 1.0 / setting.gamma_power;
+        Color { intensities:
+            Vector3::new(gamma_encode(r * setting.max_intensity, am, power),
+                         gamma_encode(g * setting.max_intensity, am, power),
+                         gamma_encode(b * setting.max_intensity, am, power)) }
     }
 }
 
