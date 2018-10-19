@@ -1,8 +1,8 @@
-use na::dot;
+use na::{Vector3, dot};
 use scene::light::{Lighting, LightingType};
 use model::{SceneObject, Ray};
 use model::intersect::{Intersection, Intersectable};
-use util::{Color, BLACK};
+use util::Color;
 
 pub fn trace(ray : &Ray, scene : &SceneObject, lightings : &Vec<Lighting>) -> Option<Color> {
     match scene.intersect(ray) {
@@ -13,10 +13,10 @@ pub fn trace(ray : &Ray, scene : &SceneObject, lightings : &Vec<Lighting>) -> Op
 
 pub fn lighting_model(intersection : &Intersection,
     scene : &SceneObject, lightings : &Vec<Lighting>) -> Color {
-    let mut c = BLACK;
+    let mut c = Color { intensities: Vector3::zeros() };
     for lighting in lightings {
-        let l = &lighting.light_pos;
-        let lc = &lighting.color;
+        let ref l = lighting.light_pos;
+        let lc = lighting.color;
         let inc_v = l.get_incident_vec(intersection.intersect_pt);
         let p = dot(&inc_v, &intersection.normal);
         match l {

@@ -2,8 +2,12 @@ use na::{Vector3, Point3, clamp};
 
 use std::ops::{Add, Mul};
 
-pub const BLACK : Color = Color { intensities: Vector3::zeros() };
+//Unfortunately not possible atm: https://discourse.nphysics.org/t/creation-of-constant-vectors/113/2
+//pub const BLACK : Color = Color { intensities: Vector3::zeros() };
 
+//Quick fix for operator, https://stackoverflow.com/questions/37313335/cannot-move-out-of-borrowed-content-with-operator-overloading
+//Ideally https://github.com/rust-lang/rust/issues/21188
+#[derive(Copy, Clone)]
 pub struct Color {
     pub intensities : Vector3<f64>
 }
