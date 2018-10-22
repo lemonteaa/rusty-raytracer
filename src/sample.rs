@@ -38,9 +38,13 @@ impl SampleScene for BallScene {
             gamma_power: 0.25,
             max_intensity: 1.0
         };
-        let mat_a = Rc::new(Material {
+        let mat_g = Rc::new(Material {
             ambient_reflectance: 0.1,
-            diffuse_reflectance: Point3::new(1.0, 1.0, 1.0)
+            diffuse_reflectance: Point3::new(0.0, 1.0, 0.0)
+        });
+        let mat_b = Rc::new(Material {
+            ambient_reflectance: 0.1,
+            diffuse_reflectance: Point3::new(0.0, 0.0, 1.0)
         });
         Scene {
             width: 800,
@@ -61,12 +65,12 @@ impl SampleScene for BallScene {
             scene_graph: SceneObject::Group {
                 child_nodes: vec![
                     SceneObject::Node { model: Box::new(Sphere {
-                        material: Rc::clone(&mat_a),
+                        material: Rc::clone(&mat_g),
                         center: Point3::new(-2.0, 0.0, -4.0),
                         radius: 1.0
                     }) },
                     SceneObject::Node { model: Box::new(Sphere {
-                        material: Rc::clone(&mat_a),
+                        material: Rc::clone(&mat_b),
                         center: Point3::new(2.0, 0.0, -4.0),
                         radius: 1.0
                     }) }
