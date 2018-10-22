@@ -20,7 +20,7 @@ pub fn lighting_model(intersection : &Intersection,
         let ref l = lighting.light_pos;
         let lc = lighting.color;
         let inc_v = l.get_incident_vec(intersection.intersect_pt);
-        let p = dot(&inc_v, &intersection.normal);
+        let p = dot(&inc_v, &intersection.normal).abs();
         match l {
             LightingType::Ambient =>
                 { c = c + lc * intersection.material.ambient_reflectance },
