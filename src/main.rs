@@ -33,7 +33,7 @@ pub mod sample;
 fn basic_render(scene: Scene, sample_cnt: usize, color_setting: ColorSetting,
     pb: &ProgressBar) -> DynamicImage {
     let mut image = DynamicImage::new_rgb8(scene.width, scene.height);
-    for y in 0..scene.height {
+    for y in (0..scene.height).rev() {
         for x in 0..scene.width {
             let mut samples: Vec<Option<Color>> = Vec::with_capacity(sample_cnt);
             for _ in 0..sample_cnt {
@@ -42,7 +42,7 @@ fn basic_render(scene: Scene, sample_cnt: usize, color_setting: ColorSetting,
             }
             let color = core::antialias_average_color(samples.into_iter(),
                             scene.background.get_pixel(x, y));
-            image.put_pixel(x, y, color.to_rgb(&color_setting));
+            image.put_pixel(x, scene.height - 1 - y, color.to_rgb(&color_setting));
         }
         pb.inc(1);
     }
