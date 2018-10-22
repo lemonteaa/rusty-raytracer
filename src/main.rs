@@ -22,6 +22,8 @@ pub mod model;
 pub mod util;
 pub mod core;
 
+pub mod sample;
+
 fn basic_render(scene: Scene, sample_cnt: usize, color_setting: ColorSetting) -> DynamicImage {
     let mut image = DynamicImage::new_rgb8(scene.width, scene.height);
     for x in 0..scene.width {

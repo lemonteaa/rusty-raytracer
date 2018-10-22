@@ -13,8 +13,8 @@ pub struct Camera {
 
     //Accept overhead for copying matrix; cache locality seems to imply
     //the desired optimization won't work anyway
-    inv_view: Option<Matrix4<f64>>,
-    projection: Option<Perspective3<f64>>
+    pub inv_view: Option<Matrix4<f64>>,
+    pub projection: Option<Perspective3<f64>>
 }
 
 impl Default for Camera {

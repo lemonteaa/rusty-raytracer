@@ -1,7 +1,7 @@
 use model::SceneObject;
 use scene::camera::Camera;
 use scene::light::Lighting;
-use util::Color;
+use util::{Color, ColorSetting};
 
 use std::path::Path;
 use image::{DynamicImage, open};
@@ -17,7 +17,8 @@ pub struct Scene {
     pub camera: Camera,
     pub lightins: Vec<Lighting>,
     pub scene_graph: SceneObject,
-    pub background: Background
+    pub background: Background,
+    pub color_setting: ColorSetting
 }
 
 pub enum Background {
